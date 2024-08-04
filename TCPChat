@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# TCP Chat Server Script
+
+# Check if the number of arguments is correct
+
+
+if [ "$#" -lt 1 ]; then
+    go run .
+fi
+
+if [ "$#" -eq 1 ]; then
+     port="$1"
+    go run . "$port"
+fi
+
+if [ "$#" -gt 1 ]; then
+    echo "[USAGE]: $0 \$port"
+    exit 1
+fi

@@ -58,6 +58,7 @@ func HandleConnection(conn net.Conn) {
 	}()
 
 	fmt.Fprintln(conn, "Connected to the chat!")
+	
 
 	// Send message history to new client
 	Mutex.Lock()
