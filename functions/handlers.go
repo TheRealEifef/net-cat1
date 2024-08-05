@@ -49,6 +49,16 @@ func HandleConnection(conn net.Conn) {
 		}
 		Connections[clientName] = conn
 		Mutex.Unlock()
+
+		// Notify all other clients that a new client has joined
+		Mutex.Lock()
+		for name, c := range Connections {
+			if name != clientName {
+				fmt.Fprintf(c, "%s has joined the chat\n", clientName)
+			}
+		}
+		Mutex.Unlock()
+
 		break
 	}
 
@@ -58,7 +68,6 @@ func HandleConnection(conn net.Conn) {
 	}()
 
 	fmt.Fprintln(conn, "Connected to the chat!")
-	
 
 	// Send message history to new client
 	Mutex.Lock()
